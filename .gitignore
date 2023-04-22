@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+env/
+logs/**
+!logs/example.log
+.vscode/
+**/__pycache__/
+logs/*
+!logs/example.log
+config.toml
+*.config.toml
+!example.config.toml
