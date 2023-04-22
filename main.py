@@ -18,8 +18,4 @@ except ModuleNotFoundError as e:
 
 bot = BaseBot()
 
-@bot.command()
-async def test(ctx):
-    raise error.BotException("Test error", bot)
-
 bot.run()
