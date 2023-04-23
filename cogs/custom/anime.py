@@ -1,7 +1,6 @@
 import discord
 from discord import app_commands, Embed
 from discord.ext import commands
-from discord.ui import View, button, Button
 from core import error
 from core.utils import read_config
 from bot import BaseBot

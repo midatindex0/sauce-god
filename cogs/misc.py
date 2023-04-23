@@ -10,7 +10,6 @@ from time import time
 
 config = read_config()
 
-
 class Misc(commands.Cog):
     def __init__(self, bot: BaseBot):
         self.bot = bot
