@@ -53,13 +53,13 @@ class Misc(commands.Cog):
         )
         embed = Embed(
             description="Pong!",
-            color = get_color(average)
+            color = get_color(average[0])
         ).add_field(
-            name="<a:api_latency:1016016946594058321> API Latency",
+            name="<a:api_latency:1016016946594058321> Avg. API Latency",
             value=f"{average[0]}ms",
             inline=False
         ).add_field(
-            name="<a:typing:1099347116003950642> Calculation Time",
+            name="<a:typing:1099347116003950642> Avg. Calculation Time",
             value=f"{average[1]}ms",
             inline=False
         ) #I'll add backend latency soon, and if we will work with a db then a db latency as well

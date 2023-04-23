@@ -16,7 +16,7 @@ class COCInorganic(commands.Cog):
     @app_commands.command(description="Start a game of Inorganic COC")
     async def start(self, interaction: discord.Interaction):
         await interaction.response.defer()
-        start_view = GameStartView()
+        start_view = GameStartView(interaction.user)
         await interaction.followup.send(view=start_view)
 
 
@@ -26,7 +26,7 @@ class GameStartView(View):
         self.author = author
 
     @button(label="Join", style=discord.ButtonStyle.green)
-    async def join(self, button: Button, interaction: discord.Interaction):
+    async def join(self, interaction: discord.Interaction, button: Button):
         await interaction.response.send_message(embed=(
             Embed(
                 description="work in progress"

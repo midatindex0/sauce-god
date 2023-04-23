@@ -3,17 +3,12 @@
 ---
 
 - #### Fixed Bug:
-    - imported `asyncio` in `anime.py` file
-    - `coc_inorganic.py` had `ctx.reply` instead of responding to the interaction, added a `defer` and and a `followup response`
-    - fixed `.env.example`
+    - `ping` command raised a `TypeError` so fixed it
+    - fixed `logging` in `BaseBot` by optimising it for windows
+    - fixed `coc_inoragin.py`
 
-- #### Changes made:
-    - added a `3 minutes timeout` in `anime` command (`anime.py`)
-    - `Join` button will now return an emphemeral response of `work in progress` Embed when interacted
-    - imporved `ping` command in `misc.py`
 
-- #### Extras:
-    - fixed a typo in `bot.py` file, it was a `comment` so no actual changes were made
-    - added `updates.md` file for detailed updates info
+- #### Changes Made:
+    - changed embed for `ping` command, it returns `Avg. API Latency` and `Avg. Calculation Time` instead of `API Latency` and `Calculation Time` respectively
 
 ~ Ayu (April 23, 2023 9:09 AM)
