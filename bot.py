@@ -14,9 +14,10 @@ import discord
 from discord.ext import commands
 
 import aiohttp
+from time import time
 
 
-# Custom class for the bot, contains configs fro logging, databases and stuff
+# Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         with open("config.toml", "rb") as f:
@@ -30,7 +31,7 @@ class BaseBot(commands.Bot):
             )
             log_handler = logging.FileHandler(
                 filename=config["default"]["log_file_prefix"]
-                + str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                + datetime.now().strftime("%Y-%m-%d %H-%M-%S")
                 + ".log",
                 encoding="utf-8",
                 mode="w",

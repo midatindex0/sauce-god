@@ -5,6 +5,7 @@ from core import error
 from core.utils import read_config
 from bot import BaseBot
 
+import asyncio
 import aiohttp
 
 config = read_config()
@@ -35,6 +36,7 @@ class Anime(commands.Cog):
                     "message",
                     check=lambda m: m.author.id == ctx.author.id
                     and m.content.isdigit(),
+                    timeout=60*3,
                 )
                 selected = data[int(index.content) - 1]
                 await ctx.send(f"https://d2o5.vercel.app/anime/{selected['slug']}")
