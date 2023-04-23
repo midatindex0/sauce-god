@@ -11,4 +11,4 @@
 - #### Changes Made:
     - changed embed for `ping` command, it returns `Avg. API Latency` and `Avg. Calculation Time` instead of `API Latency` and `Calculation Time` respectively
 
-~ Ayu (April 23, 2023 9:09 AM)
+~ Ayu (April 23, 2023 11:38 AM)
