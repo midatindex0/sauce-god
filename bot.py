@@ -16,7 +16,7 @@ from discord.ext import commands
 import aiohttp
 
 
-# Custom class for the bot, contains configs fro logging, databases and stuff
+# Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         with open("config.toml", "rb") as f:

@@ -1,5 +1,5 @@
 import discord
-from discord import app_commands
+from discord import app_commands, Embed
 from discord.ext import commands
 from discord.ui import View, button, Button
 from core import error
@@ -15,8 +15,9 @@ class COCInorganic(commands.Cog):
 
     @app_commands.command(description="Start a game of Inorganic COC")
     async def start(self, interaction: discord.Interaction):
+        await interaction.response.defer()
         start_view = GameStartView()
-        await ctx.send(view=start_view)
+        await interaction.followup.send(view=start_view)
 
 
 class GameStartView(View):
@@ -26,7 +27,13 @@ class GameStartView(View):
 
     @button(label="Join", style=discord.ButtonStyle.green)
     async def join(self, button: Button, interaction: discord.Interaction):
-        pass
+        await interaction.response.send_message(embed=(
+            Embed(
+                description="work in progress"
+            )
+        ),
+            ephemeral=True
+        )
 
 
 async def setup(bot):
