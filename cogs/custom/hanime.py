@@ -1,11 +1,8 @@
-import discord
-from discord import app_commands, Embed
-from discord.ext import commands
-from core import error
-from core.utils import read_config
-from bot import BaseBot
-
 import aiohttp
+from discord.ext import commands
+
+from bot import BaseBot
+from core.utils import read_config
 
 config = read_config()
 

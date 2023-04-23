@@ -1,10 +1,10 @@
 import discord
-from discord import app_commands, Embed
+from discord import Embed, app_commands
 from discord.ext import commands
-from discord.ui import View, button, Button
-from core import error
-from core.utils import read_config
+from discord.ui import Button, View, button
+
 from bot import BaseBot
+from core.utils import read_config
 
 config = read_config()
 
@@ -27,12 +27,8 @@ class GameStartView(View):
 
     @button(label="Join", style=discord.ButtonStyle.green)
     async def join(self, interaction: discord.Interaction, button: Button):
-        await interaction.response.send_message(embed=(
-            Embed(
-                description="work in progress"
-            )
-        ),
-            ephemeral=True
+        await interaction.response.send_message(
+            embed=(Embed(description="work in progress")), ephemeral=True
         )
 
 

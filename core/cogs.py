@@ -1,17 +1,17 @@
-import discord
 from discord.ext import commands
-from core import error
-from core.utils import read_config
+
 from bot import BaseBot
+from core.utils import read_config
 
 config = read_config()
+
 
 class CogsOps(commands.Cog):
     def __init__(self, bot: BaseBot):
         self.bot = bot
 
     @commands.group(description="Cog related commands", invoke_without_command=True)
-    @commands.has_role(config['perms']['cog_ops_access_role'])
+    @commands.has_role(config["perms"]["cog_ops_access_role"])
     async def cog(self, ctx: commands.Context):
         loaded_cogs = []
         unloaded_cogs = []
@@ -36,8 +36,9 @@ class CogsOps(commands.Cog):
                 loaded_cogs.append(ext)
             except commands.ExtensionNotFound:
                 unloaded_cogs.append(ext)
-        await ctx.send(f"```\nLoaded cogs: {', '.join(loaded_cogs)}\nUnloaded cogs: {','.join(unloaded_cogs)}```")
-
+        await ctx.send(
+            f"```\nLoaded cogs: {', '.join(loaded_cogs)}\nUnloaded cogs: {','.join(unloaded_cogs)}```"
+        )
 
     @cog.command()
     async def rel(self, ctx: commands.Context, ext):

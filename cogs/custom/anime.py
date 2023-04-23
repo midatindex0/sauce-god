@@ -1,12 +1,11 @@
-import discord
-from discord import app_commands, Embed
-from discord.ext import commands
-from core import error
-from core.utils import read_config
-from bot import BaseBot
-
 import asyncio
+
 import aiohttp
+from discord import Embed
+from discord.ext import commands
+
+from bot import BaseBot
+from core.utils import read_config
 
 config = read_config()
 
@@ -36,7 +35,7 @@ class Anime(commands.Cog):
                     "message",
                     check=lambda m: m.author.id == ctx.author.id
                     and m.content.isdigit(),
-                    timeout=60*3,
+                    timeout=60 * 3,
                 )
                 selected = data[int(index.content) - 1]
                 await ctx.send(f"https://d2o5.vercel.app/anime/{selected['slug']}")

@@ -5,16 +5,14 @@ from dotenv import load_dotenv
 # Load envirenment variables from .env
 load_dotenv()
 
-import os
 import logging
-import tomli
+import os
 from datetime import datetime
 
-import discord
-from discord.ext import commands
-
 import aiohttp
-from time import time
+import discord
+import tomli
+from discord.ext import commands
 
 
 # Custom class for the bot, contains configs for logging, databases and stuff
