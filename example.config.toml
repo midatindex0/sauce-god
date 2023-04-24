@@ -5,8 +5,8 @@ log_file_prefix="./logs/"
 core_cogs=['log', 'cogs']
 
 [cogs]
-custom=['coc_inorganic', 'anime']
-list=['misc']
+custom=['coc_inorganic', 'anime', 'chem']
+list=['misc', 'gifs']
 
 [server]
 error_log_channel=123
