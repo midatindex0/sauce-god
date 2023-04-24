@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
 
-from core import error
-
 from bot import BaseBot
+from core import error
 from core.utils import read_config
 
 config = read_config()
@@ -32,20 +31,19 @@ class Log(commands.Cog):
                 description=f"**Original**: {message_before.content}\n**New**: {message_after.content}",
             )
             e.set_author(
-                name=message_after.author.name, icon_url=message_after.author.display_avatar
+                name=message_after.author.name,
+                icon_url=message_after.author.display_avatar,
             )
             await message_log_channel.send(embed=e)
 
     @commands.Cog.listener()
-    async def on_message_delete(
-        self, message: discord.Message
-    ):
+    async def on_message_delete(self, message: discord.Message):
         if not message.author.bot:
             message_log_channel_id = self.bot.config["server"]["message_log_channel"]
             message_log_channel = await self.bot.fetch_channel(message_log_channel_id)
             e = discord.Embed(
                 title="Message delete",
-                color=0xf64800,
+                color=0xF64800,
                 description=f"{message.content}",
             )
             e.set_author(
