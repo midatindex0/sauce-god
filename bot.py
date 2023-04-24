@@ -29,7 +29,7 @@ class BaseBot(commands.Bot):
             )
             log_handler = logging.FileHandler(
                 filename=config["default"]["log_file_prefix"]
-                + datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+                + datetime.now().strftime("%d-%m-%Y %H-%M-%S")
                 + ".log",
                 encoding="utf-8",
                 mode="w",
