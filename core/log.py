@@ -22,7 +22,7 @@ class Log(commands.Cog):
     async def on_message_edit(
         self, message_before: discord.Message, message_after: discord.Message
     ):
-        if not message_after.author.bot:
+        if not message_after.author.bot and message_before.guild.id == 983948184030162964:
             message_log_channel_id = self.bot.config["server"]["message_log_channel"]
             message_log_channel = await self.bot.fetch_channel(message_log_channel_id)
             e = discord.Embed(
@@ -38,7 +38,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
-        if not message.author.bot:
+        if not message.author.bot and message.guild.id == 983948184030162964:
             message_log_channel_id = self.bot.config["server"]["message_log_channel"]
             message_log_channel = await self.bot.fetch_channel(message_log_channel_id)
             e = discord.Embed(
