@@ -69,9 +69,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             description=f"```Added {data['title']} to the Queue```",
             color=Color.blurple(),
         ).set_footer(text=f"Requested by {str(ctx.author)}")
-        await ctx.reply(
-            embed = embed
-        )
+        await ctx.reply(embed=embed)
 
         if download:
             source = ytdl.prepare_filename(data)
