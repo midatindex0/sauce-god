@@ -41,10 +41,7 @@ class Log(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
-        if (
-            not message.author.bot 
-            and message.guild.id == config["default"]["guild_id"]
-        ):
+        if not message.author.bot and message.guild.id == config["default"]["guild_id"]:
             message_log_channel_id = self.bot.config["server"]["message_log_channel"]
             message_log_channel = await self.bot.fetch_channel(message_log_channel_id)
             e = discord.Embed(
