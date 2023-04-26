@@ -7,7 +7,7 @@ guild_id=123
 
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem']
-list=['misc', 'gifs']
+list=['misc', 'gifs', 'music']
 
 [server]
 error_log_channel=123

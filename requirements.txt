@@ -5,3 +5,4 @@ aiohttp==3.8.4
 
 # custom
 rdkit==2022.9.5
+yt-dlp==2023.3.4
