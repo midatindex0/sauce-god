@@ -59,8 +59,8 @@ class Misc(commands.Cog):
             )
         )  # I'll add backend latency soon, and if we will work with a db then a db latency as well
         await msg.edit(embed=embed)
-    
-    @commands.command(name="status",help="Show bot status")
+
+    @commands.command(name="status", help="Show bot status")
     # wip
     async def status_(self, ctx: commands.Context):
         ...
