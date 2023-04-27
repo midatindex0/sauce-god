@@ -3,13 +3,13 @@ prefix="-"
 log_level = "info"
 log_file_prefix="./logs/"
 core_cogs=['log', 'cogs']
-guild_id=123
 
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem']
 list=['misc', 'gifs', 'music']
 
 [server]
+guild_id=123
 error_log_channel=123
 message_log_channel=123
 mod_log_channel=123
