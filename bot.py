@@ -24,7 +24,6 @@ class BaseBot(commands.Bot):
             super().__init__(
                 intents=discord.Intents.all(),
                 command_prefix=config["default"]["prefix"],
-                owner_ids=config["default"]["owner_ids"] * args,
                 **kwargs,
             )
             log_handler = logging.FileHandler(
