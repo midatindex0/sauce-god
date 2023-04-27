@@ -53,12 +53,19 @@ class Misc(commands.Cog):
                 inline=False,
             )
             .add_field(
-                name="<a:typing:1099347116003950642> Avg. Calculation Time",
+                name="<a:typing:1099347116003950642> Avg. Return Time",
                 value=f"{average[1]}ms",
                 inline=False,
             )
         )  # I'll add backend latency soon, and if we will work with a db then a db latency as well
         await msg.edit(embed=embed)
+    
+    @commands.command(name="status",help="Show bot status")
+    @commands.is_owner()
+    async def status_(self, ctx: commands.Context):
+        ...
+        # await ctx.reply("wip") NOTE: will work with psutil
+
 
 
 async def setup(bot):

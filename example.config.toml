@@ -4,6 +4,7 @@ log_level = "info"
 log_file_prefix="./logs/"
 core_cogs=['log', 'cogs']
 guild_id=123
+owner_ids=[123, 456]
 
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem']
