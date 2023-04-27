@@ -61,7 +61,7 @@ class Misc(commands.Cog):
         await msg.edit(embed=embed)
     
     @commands.command(name="status",help="Show bot status")
-    @commands.is_owner()
+    # wip
     async def status_(self, ctx: commands.Context):
         ...
         # await ctx.reply("wip") NOTE: will work with psutil

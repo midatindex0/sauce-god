@@ -4,7 +4,6 @@ log_level = "info"
 log_file_prefix="./logs/"
 core_cogs=['log', 'cogs']
 guild_id=123
-owner_ids=[123, 456]
 
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem']
@@ -17,3 +16,4 @@ mod_log_channel=123
 
 [perms]
 cog_ops_access_role=123
+bot_owner_role=123
