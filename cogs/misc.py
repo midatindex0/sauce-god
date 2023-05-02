@@ -6,6 +6,8 @@ from discord.ext import commands
 from bot import BaseBot
 from core.utils import read_config
 
+import psutil
+
 config = read_config()
 
 
@@ -61,10 +63,34 @@ class Misc(commands.Cog):
         await msg.edit(embed=embed)
 
     @commands.command(name="status", help="Show bot status")
-    # wip
+    @commands.has_role(config["perms"]["bot_admin_ops_role"])
     async def status_(self, ctx: commands.Context):
-        ...
-        # await ctx.reply("wip") NOTE: will work with psutil
+        cpu_percent = psutil.cpu_percent()
+        mem_percent = psutil.virtual_memory().percent
+        ping = round(self.bot.latency * 1000, 2)
+        disk_percent = psutil.disk_usage('/').percent
+        embed = Embed(
+            description = "Bot Status",
+            color = Color.green()
+        ).add_field(
+            name = "<:CPU:1016016795909488651> CPU Usage",
+            value = f"```{cpu_percent}%```",
+            inline = False
+        ).add_field(
+            name = "<:memory:1016016586584363079> Memory Usage",
+            value = f"```{mem_percent}%```",
+            inline = False
+        ).add_field(
+            name = "<a:disk:1094229488239378573> Disk Usage",
+            value = f"```{disk_percent}%```",
+            inline = False
+        ).add_field(
+            name = "<a:api_latency:1016016946594058321> API Latency",
+            value = f"```128ms```",
+            inline = False
+        )
+        await ctx.reply(embed=embed)
+        
 
 
 async def setup(bot):
