@@ -31,7 +31,7 @@ class Log(commands.Cog):
             e = discord.Embed(
                 title="Message Edit",
                 color=0xF6F600,
-                description=f"**Original**: {message_before.content}\n**New**: {message_after.content}",
+                description=f"**Original**: {message_before.content}\n**New**: {message_after.content}\n[jump url]({message_after.jump_url})",
             )
             e.set_author(
                 name=message_after.author.name,
