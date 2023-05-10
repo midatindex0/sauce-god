@@ -14,6 +14,8 @@ import discord
 import tomli
 from discord.ext import commands
 
+import core.utils as utils
+
 
 # Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
@@ -58,6 +60,9 @@ class BaseBot(commands.Bot):
         for extension in self.config["cogs"]["list"]:
             await self.load_extension(f"cogs.{extension}")
         await self.tree.sync()
+        # self.db = await utils.connect()
+        # await utils.create_tables()
+        
 
     def run(self):
         TOKEN = os.getenv("TOKEN")

@@ -12,3 +12,6 @@ config.toml
 *.config.toml
 !example.config.toml
 start.sh
+test.*
+*.db
+databse/*
