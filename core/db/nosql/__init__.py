@@ -1,7 +1,8 @@
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 
 from beanie import init_beanie
+from motor.motor_asyncio import AsyncIOMotorClient
+
 from core.db.nosql.model import model_list
 
 

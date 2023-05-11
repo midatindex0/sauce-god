@@ -1,7 +1,6 @@
+import aiohttp
 from discord import Color, Embed
 from discord.ext import commands
-
-import aiohttp
 
 from core import utils
 from core.db.nosql.model import AnimeSubscribeModel

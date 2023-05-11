@@ -10,4 +10,5 @@ class AnimeSubscribeModel(Document):
     next_release: int
     episode: int
 
+
 model_list = [AnimeSubscribeModel]

@@ -16,6 +16,7 @@ from discord.ext import commands
 
 from core.db.nosql import Driver
 
+
 # Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
     def __init__(self, *args, **kwargs):
