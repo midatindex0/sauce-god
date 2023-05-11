@@ -18,7 +18,7 @@ class Subscribe(commands.Cog):
         await ctx.reply("Connected to database")
 
     @commands.command(name="subscribe", aliases=["sub"])
-    @commands.cooldown(1, 5, commands.BucketType.user) # <--- Tapu proof
+    @commands.cooldown(1, 5, commands.BucketType.user)  # <--- Tapu proof
     async def subscribe(self, ctx: commands.Context):
         if ctx.message.reference:
             msg = await ctx.fetch_message(ctx.message.reference.message_id)
@@ -66,10 +66,12 @@ class Subscribe(commands.Cog):
                     await ctx.reply("✅ Subbed:", embed=embed)
 
                 except Exception as e:
-                    await ctx.reply(embed = Embed(
-                        description=":x: An error occured while subscribing to that anime!",
-                        color=Color.red(),
-                    ))
+                    await ctx.reply(
+                        embed=Embed(
+                            description=":x: An error occured while subscribing to that anime!",
+                            color=Color.red(),
+                        )
+                    )
                     raise e
                 return
 
