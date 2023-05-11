@@ -70,7 +70,7 @@ class Subscribe(commands.Cog):
                         await res.set(
                             {
                                 AnimeSubscribeModel.member_ids: res.member_ids.append(
-                                    ctx, author.id
+                                    ctx.author.id
                                 )
                             }
                         )
