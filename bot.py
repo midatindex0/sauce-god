@@ -14,6 +14,7 @@ import discord
 import tomli
 from discord.ext import commands
 
+from core.db.nosql import Driver
 
 # Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
@@ -48,9 +49,6 @@ class BaseBot(commands.Bot):
             self.session = aiohttp.ClientSession()
 
     async def on_ready(self):
-        self.log(
-            f"Connected to discord with username: {self.user.display_name}#{self.user.discriminator}"
-        )
         for extension in self.config["default"]["core_cogs"]:
             await self.load_extension(f"core.{extension}")
         for extension in self.config["cogs"]["custom"]:
@@ -58,8 +56,12 @@ class BaseBot(commands.Bot):
         for extension in self.config["cogs"]["list"]:
             await self.load_extension(f"cogs.{extension}")
         await self.tree.sync()
-        # self.db = await utils.connect()
-        # await utils.create_tables()
+        self.db = Driver()
+        await self.db.connect()
+        self.log("Connected to database")
+        self.log(
+            f"Connected to discord with username: {self.user.display_name}#{self.user.discriminator}"
+        )
 
     def run(self):
         TOKEN = os.getenv("TOKEN")

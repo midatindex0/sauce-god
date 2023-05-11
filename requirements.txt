@@ -11,5 +11,5 @@ yt-dlp==2023.3.4
 # helper
 pytimeparse==1.1.8
 
-# db
-aiosqlite==0.19.0 
+# odm
+beanie==1.19.0
