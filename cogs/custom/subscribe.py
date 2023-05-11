@@ -65,11 +65,10 @@ class Subscribe(commands.Cog):
                     await ctx.reply("✅ Subbed:", embed=embed)
 
                 except Exception as e:
-                    await ctx.reply(f"Can't find anime: {anime}")
-                    channel = self.bot.get_channel(
-                        config["server"]["error_log_channel"]
-                    )
-                    await channel.send(f"Error: ```{e}```")
+                    await ctx.reply(embed = Embed(
+                        description=":x: An error occured while subscribing to that anime!",
+                        color=Color.red(),
+                    ))
                     raise e
                 return
 
