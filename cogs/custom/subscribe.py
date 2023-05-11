@@ -57,10 +57,10 @@ class Subscribe(commands.Cog):
                     await self.db.commit()
                     await self.db.close()
                     embed = Embed(
-                        description=data["title"], color=Color.green()
+                        description=data["title"]["romaji"], color=Color.green()
                     ).add_field(
                         name="Next Episode at:",
-                        value=f"<t:{data['nextAiringEpisode']['airingAt']}:F> <t:{data['nextAiringEpisode']['airingAt']}:R>",
+                        value=f"<t:{data['nextAiringEpisode']['airingAt']}:F> (<t:{data['nextAiringEpisode']['airingAt']}:R>)",
                     )
                     await ctx.reply("✅ Subbed:", embed=embed)
 
