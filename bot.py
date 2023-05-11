@@ -15,7 +15,6 @@ import tomli
 from discord.ext import commands
 
 
-
 # Custom class for the bot, contains configs for logging, databases and stuff
 class BaseBot(commands.Bot):
     def __init__(self, *args, **kwargs):

@@ -65,10 +65,12 @@ class Subscribe(commands.Cog):
                     await ctx.reply("✅ Subbed:", embed=embed)
 
                 except Exception as e:
-                    await ctx.reply(embed = Embed(
-                        description=":x: An error occured while subscribing to that anime!",
-                        color=Color.red(),
-                    ))
+                    await ctx.reply(
+                        embed=Embed(
+                            description=":x: An error occured while subscribing to that anime!",
+                            color=Color.red(),
+                        )
+                    )
                     raise e
                 return
 
