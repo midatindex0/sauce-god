@@ -137,12 +137,9 @@ class Subscribe(commands.Cog):
 
     @tasks.loop(seconds=5 * 60)
     async def anime_publish(self):
-        print("test")
         animes = await AnimeSubscribeModel.find_all().to_list()
         for anime in animes:
-            print(anime)
             if anime.next_release <= int(time()):
-                print("yes")
                 res = await self.session.get(
                     f"https://d2o5.vercel.app/anime/{anime.anime_slug}/{anime.episode}"
                 )
