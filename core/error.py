@@ -13,7 +13,7 @@ class BotException(Exception):
     def to_embed(self) -> discord.Embed:
         return discord.Embed(
             color=0xFC4D25,
-            title=str(self.err),
+            title=str(self.err)[:252],
             description="\n".join(traceback.format_exception(self.err)),
         )
 

@@ -8,9 +8,9 @@ config = read_config()
 
 
 class HAnime(commands.Cog):
-    def __init__(self, bot: BaseBot, session: aiohttp.ClientSession):
+    def __init__(self, bot: BaseBot):
         self.bot = bot
-        self.session = session
+        self.session = bot.session
 
     @commands.group(description="Search hanimes and more", invoke_without_command=True)
     @commands.is_nsfw()
@@ -19,5 +19,4 @@ class HAnime(commands.Cog):
 
 
 async def setup(bot):
-    session = aiohttp.ClientSession(loop=bot.loop)
-    await bot.add_cog(HAnime(bot, session))
+    await bot.add_cog(HAnime(bot))

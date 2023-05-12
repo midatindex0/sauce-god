@@ -11,9 +11,9 @@ config = read_config()
 
 
 class Anime(commands.Cog):
-    def __init__(self, bot: BaseBot, session: aiohttp.ClientSession):
+    def __init__(self, bot: BaseBot):
         self.bot = bot
-        self.session = session
+        self.session = bot.session
 
     @commands.group(description="Search anime and more", invoke_without_command=True)
     async def anime(self, ctx: commands.Context, *, name: str):
@@ -51,5 +51,4 @@ class Anime(commands.Cog):
 
 
 async def setup(bot):
-    session = aiohttp.ClientSession(loop=bot.loop)
-    await bot.add_cog(Anime(bot, session))
+    await bot.add_cog(Anime(bot))

@@ -1,6 +1,9 @@
 import aiohttp
 from discord import Color, Embed
-from discord.ext import commands
+from discord.ext import commands, tasks
+from beanie.operators import Eq
+from pydantic import BaseModel
+from time import time
 
 from core import utils
 from core.db.nosql.model import AnimeSubscribeModel
@@ -8,10 +11,18 @@ from core.db.nosql.model import AnimeSubscribeModel
 config = utils.read_config()
 
 
+class AnimeTitleProject(BaseModel):
+    anime_title: str
+
+
 class Subscribe(commands.Cog):
-    def __init__(self, bot: commands.Bot, session: aiohttp.ClientSession) -> None:
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        self.session = session
+        self.session = bot.session
+        self.anime_publish.start()
+
+    def cog_unload(self):
+        self.anime_publish.cancel()
 
     async def anilist_get(self, slug: str):
         url = "https://graphql.anilist.co"
@@ -20,11 +31,11 @@ class Subscribe(commands.Cog):
                 Media(id: $id, search: $search) {
                     id
                     title {
-                    romaji
+                        romaji
                     }
                     nextAiringEpisode {
-                    airingAt
-                    episode
+                        airingAt
+                        episode
                     }
                 }
             }
@@ -39,7 +50,11 @@ class Subscribe(commands.Cog):
         else:
             return None
 
-    @commands.command(name="subscribe", aliases=["sub"])
+    @commands.command(
+        name="subscribe",
+        help="Get notified when new episode is released",
+        aliases=["sub"],
+    )
     @commands.cooldown(1, 5, commands.BucketType.user)  # <--- Tapu proof
     async def subscribe(self, ctx: commands.Context):
         if ctx.message.reference:
@@ -61,23 +76,19 @@ class Subscribe(commands.Cog):
                     if ctx.author.id in res.member_ids:
                         embed = Embed(
                             description=":x: You are already subbed to that anime!",
-                            color=Color.gold(),
+                            color=Color.red(),
                         )
                         await ctx.reply(embed=embed)
                         return
                     else:
-                        await res.set(
-                            {
-                                AnimeSubscribeModel.member_ids: res.member_ids.append(
-                                    ctx.author.id
-                                )
-                            }
-                        )
+                        res.member_ids.append(ctx.author.id)
+                        await res.save()
                 else:
                     sub_model = AnimeSubscribeModel(
                         member_ids=[ctx.author.id],
                         anilist_id=data["id"],
                         anime_slug=anime,
+                        anime_title=data["title"]["romaji"],
                         next_release=data["nextAiringEpisode"]["airingAt"],
                         episode=data["nextAiringEpisode"]["episode"],
                     )
@@ -93,7 +104,63 @@ class Subscribe(commands.Cog):
                 return
         await ctx.reply("Please reply to a message from me")
 
+    @commands.command(
+        name="unsubscribe",
+        help="Unsubscribe from new release notification",
+        aliases=["unsub"],
+    )
+    async def unsubscribe(self, ctx: commands.Context):
+        pass
+
+    @commands.command(name="subscriptions", help="List subscriptions", aliases=["subs"])
+    async def subscriptions(self, ctx: commands.Context):
+        subs = (
+            await AnimeSubscribeModel.find(
+                AnimeSubscribeModel.member_ids == ctx.author.id
+            )
+            .project(AnimeTitleProject)
+            .to_list()
+        )
+        if subs:
+            return await ctx.reply(
+                embed=Embed(
+                    title="Anime Subscriptions",
+                    description="\n".join(map(lambda s: s.anime_title, subs)),
+                    color=Color.green(),
+                ),
+            )
+        return await ctx.reply(
+            embed=Embed(
+                description=":x: You are not subscribed to any anime",
+                color=Color.red(),
+            )
+        )
+
+    @tasks.loop(seconds=5*60)
+    async def anime_publish(self):
+        print("test")
+        animes = await AnimeSubscribeModel.find_all().to_list()
+        for anime in animes:
+            print(anime)
+            if anime.next_release <= int(time()):
+                print("yes")
+                res = await self.session.get(
+                    f"https://d2o5.vercel.app/anime/{anime.anime_slug}/{anime.episode}"
+                )
+                if res.ok:
+                    await anime.notify(
+                        await self.bot.fetch_channel(
+                            config["server"]["notification_channel"]
+                        )
+                    )
+                    data = await self.anilist_get(anime.anime_slug)
+                    if data["nextAiringEpisode"]:
+                        anime.next_release = data["nextAiringEpisode"]["airingAt"]
+                        anime.episode = data["nextAiringEpisode"]["episode"]
+                        await anime.save()
+                    else:
+                        await anime.delete()
+
 
 async def setup(bot: commands.Bot):
-    session = aiohttp.ClientSession(loop=bot.loop)
-    await bot.add_cog(Subscribe(bot, session))
+    await bot.add_cog(Subscribe(bot))

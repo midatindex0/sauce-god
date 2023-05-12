@@ -47,9 +47,11 @@ class BaseBot(commands.Bot):
             self.logger.addHandler(stdout_handler)
             self.logger.setLevel(logging.DEBUG)
 
-            self.session = aiohttp.ClientSession()
-
     async def on_ready(self):
+        self.session = aiohttp.ClientSession(loop=self.loop)
+        self.db = Driver()
+        await self.db.connect()
+        self.log("Connected to database")
         for extension in self.config["default"]["core_cogs"]:
             await self.load_extension(f"core.{extension}")
         for extension in self.config["cogs"]["custom"]:
@@ -57,9 +59,6 @@ class BaseBot(commands.Bot):
         for extension in self.config["cogs"]["list"]:
             await self.load_extension(f"cogs.{extension}")
         await self.tree.sync()
-        self.db = Driver()
-        await self.db.connect()
-        self.log("Connected to database")
         self.log(
             f"Connected to discord with username: {self.user.display_name}#{self.user.discriminator}"
         )

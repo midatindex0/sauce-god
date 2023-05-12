@@ -13,6 +13,7 @@ guild_id=123
 error_log_channel=123
 message_log_channel=123
 mod_log_channel=123
+notification_channel=123
 
 [perms]
 cog_ops_access_role=123
