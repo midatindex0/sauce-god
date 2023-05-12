@@ -1,9 +1,8 @@
-import aiohttp
+from time import time
+
 from discord import Color, Embed
 from discord.ext import commands, tasks
-from beanie.operators import Eq
 from pydantic import BaseModel
-from time import time
 
 from core import utils
 from core.db.nosql.model import AnimeSubscribeModel
@@ -136,7 +135,7 @@ class Subscribe(commands.Cog):
             )
         )
 
-    @tasks.loop(seconds=5*60)
+    @tasks.loop(seconds=5 * 60)
     async def anime_publish(self):
         print("test")
         animes = await AnimeSubscribeModel.find_all().to_list()

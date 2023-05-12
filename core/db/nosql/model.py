@@ -1,6 +1,6 @@
 from typing import List
 
-from beanie import Document, PydanticObjectId
+from beanie import Document
 
 
 class AnimeSubscribeModel(Document):

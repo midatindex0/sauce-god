@@ -1,6 +1,5 @@
 import asyncio
 
-import aiohttp
 from discord import Embed
 from discord.ext import commands
 
