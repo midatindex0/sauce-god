@@ -12,6 +12,7 @@ config = utils.read_config()
 
 class AnimeTitleProject(BaseModel):
     anime_title: str
+    next_release: int
 
 
 class Subscribe(commands.Cog):
@@ -101,7 +102,7 @@ class Subscribe(commands.Cog):
                 )
                 await ctx.reply("✅ Subbed:", embed=embed)
                 return
-        await ctx.reply("Please reply to a message from me")
+        await ctx.reply("Please reply to an anime link from me")
 
     @commands.command(
         name="unsubscribe",
@@ -109,7 +110,22 @@ class Subscribe(commands.Cog):
         aliases=["unsub"],
     )
     async def unsubscribe(self, ctx: commands.Context):
-        pass
+        if ctx.message.reference:
+            msg = await ctx.fetch_message(ctx.message.reference.message_id)
+            if msg.author.id == self.bot.user.id and "/anime/" in msg.content:
+                anime = msg.content.split("/")[4]
+                res = await AnimeSubscribeModel.find_one(
+                    AnimeSubscribeModel.anime_slug == anime
+                )
+                if res and ctx.author.id in res.member_ids:
+                    if len(res.member_ids) != 1:
+                        res.member_ids.remove(ctx.author.id)
+                        await res.save()
+                    else:
+                        await res.delete()
+                    return await ctx.reply("✅ Unsubscribed")
+                await ctx.reply("You are not subscribed to this anime")
+        await ctx.reply("Please reply to an anime link from me")
 
     @commands.command(name="subscriptions", help="List subscriptions", aliases=["subs"])
     async def subscriptions(self, ctx: commands.Context):
@@ -124,7 +140,12 @@ class Subscribe(commands.Cog):
             return await ctx.reply(
                 embed=Embed(
                     title="Anime Subscriptions",
-                    description="\n".join(map(lambda s: s.anime_title, subs)),
+                    description="\n".join(
+                        map(
+                            lambda s: s.anime_title + f" - airs <t:{s.next_release}:R>",
+                            subs,
+                        )
+                    ),
                     color=Color.green(),
                 ),
             )
