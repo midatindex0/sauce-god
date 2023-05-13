@@ -124,7 +124,7 @@ class Subscribe(commands.Cog):
                     else:
                         await res.delete()
                     return await ctx.reply("✅ Unsubscribed")
-                await ctx.reply("You are not subscribed to this anime")
+                return await ctx.reply("You are not subscribed to this anime")
         await ctx.reply("Please reply to an anime link from me")
 
     @commands.command(name="subscriptions", help="List subscriptions", aliases=["subs"])
