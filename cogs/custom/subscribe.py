@@ -141,8 +141,9 @@ class Subscribe(commands.Cog):
         for anime in animes:
             if anime.next_release <= int(time()):
                 res = await self.session.get(
-                    f"https://d2o5.vercel.app/anime/{anime.anime_slug}/{anime.episode}"
+                    f"https://d2o5.vercel.app/anime/{anime.anime_slug}/episode/{anime.episode}"
                 )
+                print(res.status)
                 if res.ok:
                     await anime.notify(
                         await self.bot.fetch_channel(
