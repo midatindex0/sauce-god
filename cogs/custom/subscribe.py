@@ -143,7 +143,6 @@ class Subscribe(commands.Cog):
                 res = await self.session.get(
                     f"https://d2o5.vercel.app/anime/{anime.anime_slug}/episode/{anime.episode}"
                 )
-                print(res.status)
                 if res.ok:
                     await anime.notify(
                         await self.bot.fetch_channel(

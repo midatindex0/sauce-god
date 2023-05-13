@@ -12,9 +12,9 @@ class AnimeSubscribeModel(Document):
     episode: int
 
     async def notify(self, channel):
-        pings = "".join(map(lambda id: "<@{}>".format(id), self.member_ids))
+        pings = " ".join(map(lambda id: "<@{}>".format(id), self.member_ids))
         await channel.send(
-            f"**{self.anime_title}** episode {self.episode} released!\n[{pings}]\nStream now at https://d2o5.vercel.app/anime/{self.anime_slug}/episode/{self.episode}"
+            f"**{self.anime_title}** episode {self.episode} released!\n[{pings}]\nStream now at https://d2o5.vercel.app/anime/{self.anime_slug}"
         )
 
 
