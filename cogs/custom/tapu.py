@@ -70,7 +70,8 @@ class Tapu(commands.Cog):
     @commands.command(description="Get stats about Tapu", invoke_without_command=True)
     async def tapu(self, ctx: commands.Context):
         await ctx.send(
-            f"Tapu was online for **{int(sum(self.tracked_timers_day)/60)} minutes** today.\nTotal online activity tracked: **{int(sum(self.tracked_timers_total)/60)} minutes**.\n_Note: Records are temporary and lost on bot restart_")
+            f"Tapu was online for **{int(sum(self.tracked_timers_day)/60)} minutes** today.\nTotal online activity tracked: **{int(sum(self.tracked_timers_total)/60)} minutes**.\n_Note: Records are temporary and lost on bot restart_"
+        )
 
 
 async def setup(bot):
