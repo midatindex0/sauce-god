@@ -22,7 +22,7 @@ class Tapu(commands.Cog):
     async def tapu_track(self):
         vault = self.bot.get_guild(983948184030162964)
         tapu = await vault.fetch_member(673105565689446409)
-        if tapu.status != "offline":
+        if str(tapu.status) != "offline":
             time_enlapsed = (datetime.now() - self.timer).total_seconds()
             if (time_enlapsed / 60) >= 30:
                 await self.notify_tapu(time_enlapsed)
@@ -34,7 +34,7 @@ class Tapu(commands.Cog):
     @commands.Cog.listener()
     async def on_presence_update(self, b: discord.Member, a: discord.Member):
         if a.id == 673105565689446409:
-            b_s, a_s = b.status, a.status
+            b_s, a_s = str(b.status), str(a.status)
             if b_s == a_s:
                 return
             elif b_s != "offline" and a_s != "offline":
@@ -54,7 +54,7 @@ class Tapu(commands.Cog):
     async def on_tapu_check(self):
         vault = self.bot.get_guild(983948184030162964)
         tapu = await vault.fetch_member(673105565689446409)
-        if tapu.status != "offline":
+        if str(tapu.status) != "offline":
             self.timer = datetime.now()
             self.tapu_track.start()
 

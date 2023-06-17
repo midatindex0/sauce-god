@@ -22,7 +22,7 @@ class Midnight(commands.Cog):
     async def midnight_track(self):
         vault = self.bot.get_guild(983948184030162964)
         midnight = await vault.fetch_member(823588482273902672)
-        if midnight.status != "offline":
+        if str(midnight.status) != "offline":
             time_enlapsed = (datetime.now() - self.timer).total_seconds()
             if (time_enlapsed / 60) >= 30:
                 await self.notify_midnight(time_enlapsed)
@@ -34,7 +34,7 @@ class Midnight(commands.Cog):
     @commands.Cog.listener()
     async def on_presence_update(self, b: discord.Member, a: discord.Member):
         if a.id == 823588482273902672:
-            b_s, a_s = b.status, a.status
+            b_s, a_s = str(b.status), str(a.status)
             if b_s == a_s:
                 return
             elif b_s != "offline" and a_s != "offline":
@@ -54,7 +54,7 @@ class Midnight(commands.Cog):
     async def on_midnight_check(self):
         vault = self.bot.get_guild(983948184030162964)
         midnight = await vault.fetch_member(823588482273902672)
-        if midnight.status != "offline":
+        if str(midnight.status) != "offline":
             self.timer = datetime.now()
             self.midnight_track.start()
 
