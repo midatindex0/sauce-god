@@ -59,6 +59,8 @@ class BaseBot(commands.Bot):
         for extension in self.config["cogs"]["list"]:
             await self.load_extension(f"cogs.{extension}")
         await self.tree.sync()
+        for event in self.config["events"]["custom_dispatch_on_ready"]:
+            self.dispatch(event)
         self.log(
             f"Connected to discord with username: {self.user.display_name}#{self.user.discriminator}"
         )
