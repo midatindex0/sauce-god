@@ -67,7 +67,9 @@ class Midnight(commands.Cog):
             f"{midnight.mention} You are online for {minutes_enlapsed} minutes. Go study.\n"
         )
 
-    @commands.command(description="Get stats about Midnight", invoke_without_command=True)
+    @commands.command(
+        description="Get stats about Midnight", invoke_without_command=True
+    )
     async def midnight(self, ctx: commands.Context):
         await ctx.send(
             f"Midnight was online for **{int(sum(self.tracked_timers_day)/60)} minutes** today.\nTotal online activity tracked: **{int(sum(self.tracked_timers_total)/60)} minutes**.\n_Note: Records are temporary and lost on bot restart_"
