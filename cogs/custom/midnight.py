@@ -21,7 +21,7 @@ class Midnight(commands.Cog):
     @tasks.loop(seconds=60)
     async def midnight_track(self):
         vault = self.bot.get_guild(983948184030162964)
-        midnight = vault.get_member(823588482273902672)
+        midnight = await vault.fetch_member(823588482273902672)
         if midnight.status != "offline":
             time_enlapsed = (datetime.now() - self.timer).total_seconds()
             if (time_enlapsed / 60) >= 30:

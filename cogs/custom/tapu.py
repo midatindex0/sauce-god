@@ -21,7 +21,7 @@ class Tapu(commands.Cog):
     @tasks.loop(seconds=60)
     async def tapu_track(self):
         vault = self.bot.get_guild(983948184030162964)
-        tapu = vault.get_member(673105565689446409)
+        tapu = await vault.fetch_member(673105565689446409)
         if tapu.status != "offline":
             time_enlapsed = (datetime.now() - self.timer).total_seconds()
             if (time_enlapsed / 60) >= 30:
