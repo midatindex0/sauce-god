@@ -58,6 +58,8 @@ class BaseBot(commands.Bot):
             await self.load_extension(f"cogs.custom.{extension}")
         for extension in self.config["cogs"]["list"]:
             await self.load_extension(f"cogs.{extension}")
+        for extension in self.config["cogs"]["activity"]:
+            await self.load_extension(f"cogs.activity.{extension}")
         await self.tree.sync()
         for event in self.config["events"]["custom_dispatch_on_ready"]:
             self.dispatch(event)

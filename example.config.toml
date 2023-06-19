@@ -7,6 +7,7 @@ core_cogs=['log', 'cogs']
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem', 'subscribe']
 list=['misc', 'gifs', 'music']
+acitvity=['ayu', 'midnight', 'tapu', 'zapp']
 
 [server]
 guild_id=123
