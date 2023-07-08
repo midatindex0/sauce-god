@@ -49,6 +49,38 @@ class Subscribe(commands.Cog):
             return res["data"]["Media"]
         else:
             return None
+    
+    @commands.command(
+        name="airing",
+        help="checking airing schedule of an anime",
+        aliases=["air"]
+    )
+    @commands.cooldown(1, 5, commands.BucketType.user)  # <--- Tapu proof
+    async def _air(self, ctx: commands.Context):
+        if ctx.message.reference:
+            msg = await ctx.fetch_message(ctx.message.reference.message_id)
+            if msg.author.id == self.bot.user.id and "/anime/" in msg.content:
+                anime = msg.content.split("/")[4]
+                data = await self.anilist_get(anime)
+                if data["nextAiringEpisode"] is None:
+                    return await ctx.reply(
+                        embed=Embed(
+                            description=":x: Anime is not airing right now!",
+                            color=Color.red(),
+                        )
+                    )
+                embed = Embed(
+                    description=data["title"]["romaji"], color=Color.green()
+                ).add_field(
+                    name=f"Episode {data['nextAiringEpisode']['episode']} at:",
+                    value=f"<t:{data['nextAiringEpisode']['airingAt']}:F> (<t:{data['nextAiringEpisode']['airingAt']}:R>)",
+                )
+                await ctx.reply(
+                    embed=embed
+                )
+                return
+        await ctx.reply("Please reply to anime link from me")
+        
 
     @commands.command(
         name="subscribe",
