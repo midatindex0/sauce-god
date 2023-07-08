@@ -49,11 +49,9 @@ class Subscribe(commands.Cog):
             return res["data"]["Media"]
         else:
             return None
-    
+
     @commands.command(
-        name="airing",
-        help="checking airing schedule of an anime",
-        aliases=["air"]
+        name="airing", help="checking airing schedule of an anime", aliases=["air"]
     )
     @commands.cooldown(1, 5, commands.BucketType.user)  # <--- Tapu proof
     async def _air(self, ctx: commands.Context):
@@ -75,12 +73,9 @@ class Subscribe(commands.Cog):
                     name=f"Episode {data['nextAiringEpisode']['episode']} at:",
                     value=f"<t:{data['nextAiringEpisode']['airingAt']}:F> (<t:{data['nextAiringEpisode']['airingAt']}:R>)",
                 )
-                await ctx.reply(
-                    embed=embed
-                )
+                await ctx.reply(embed=embed)
                 return
         await ctx.reply("Please reply to anime link from me")
-        
 
     @commands.command(
         name="subscribe",
