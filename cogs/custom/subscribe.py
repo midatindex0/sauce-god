@@ -90,7 +90,7 @@ class Subscribe(commands.Cog):
                 anime = msg.content.split("/")[4]
                 data = await self.anilist_get(anime)
                 if not data:
-                    await ctx.reply("Could not find anime")
+                    return await ctx.reply("Could not find anime")
                 if data["nextAiringEpisode"] is None:
                     return await ctx.reply(
                         embed=Embed(
