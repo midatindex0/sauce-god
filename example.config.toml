@@ -7,7 +7,9 @@ core_cogs=['log', 'cogs']
 [cogs]
 custom=['coc_inorganic', 'anime', 'chem', 'subscribe']
 list=['misc', 'gifs', 'music']
-acitvity=['ayu', 'midnight', 'tapu', 'zapp']
+
+[events]
+custom_dispatch_on_ready = []
 
 [server]
 guild_id=123

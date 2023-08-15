@@ -48,6 +48,10 @@ class Anime(commands.Cog):
             await ctx.send("Some error occured while fetching data")
             return
 
+    @anime.command(description="Get m3u8 stream for an anime")
+    async def m3u8(ctx: commands.Context, *, name: str):
+        pass
+
 
 async def setup(bot):
     await bot.add_cog(Anime(bot))
