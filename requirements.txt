@@ -6,7 +6,7 @@ psutil==5.9.5
 
 # custom
 rdkit==2022.9.5
-yt-dlp==2023.3.4
+yt-dlp==2023.7.6
 
 # helper
 pytimeparse==1.1.8
