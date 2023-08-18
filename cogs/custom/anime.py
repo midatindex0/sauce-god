@@ -93,7 +93,7 @@ class Anime(commands.Cog):
                         if res.ok:
                             data = await res.json()
                             res = await self.session.get(
-                                f"https://d2o5-backend.vercel.app/anime/embed?link={(data.get('sub') or data.get('sub'))[0]}"
+                                f"https://d2o5-backend.vercel.app/anime/embed?link={(data.get('SUB') or data.get('DUB'))[0]}"
                             )
                             if res.ok:
                                 data = (await res.text()).replace('"', "")
