@@ -64,6 +64,11 @@ class BaseBot(commands.Bot):
         self.log(
             f"Connected to discord with username: {self.user.display_name}#{self.user.discriminator}"
         )
+    
+    async def on_member_join(self, member: discord.Member):
+        blacklist = [872642439159087106, 744478249719169074]
+        if member.id in blacklist:
+            await member.ban(reason = "You are not worthy.")
 
     def run(self):
         TOKEN = os.getenv("TOKEN")
