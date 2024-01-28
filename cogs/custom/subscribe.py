@@ -187,25 +187,28 @@ class Subscribe(commands.Cog):
 
     @tasks.loop(seconds=5 * 60)
     async def anime_publish(self):
-        animes = await AnimeSubscribeModel.find_all().to_list()
-        for anime in animes:
-            if anime.next_release <= int(time()):
-                res = await self.session.get(
-                    f"https://d2o5.vercel.app/anime/{anime.anime_slug}/episode/{anime.episode}"
-                )
-                if res.ok:
-                    await anime.notify(
-                        await self.bot.fetch_channel(
-                            config["server"]["notification_channel"]
-                        )
+        try:
+            animes = await AnimeSubscribeModel.find_all().to_list()
+            for anime in animes:
+                if anime.next_release <= int(time()):
+                    res = await self.session.get(
+                        f"https://d2o5.vercel.app/anime/{anime.anime_slug}/episode/{anime.episode}"
                     )
-                    data = await self.anilist_get(anime.anime_slug)
-                    if data["nextAiringEpisode"]:
-                        anime.next_release = data["nextAiringEpisode"]["airingAt"]
-                        anime.episode = data["nextAiringEpisode"]["episode"]
-                        await anime.save()
-                    else:
-                        await anime.delete()
+                    if res.ok:
+                        await anime.notify(
+                            await self.bot.fetch_channel(
+                                config["server"]["notification_channel"]
+                            )
+                        )
+                        data = await self.anilist_get(anime.anime_slug)
+                        if data["nextAiringEpisode"]:
+                            anime.next_release = data["nextAiringEpisode"]["airingAt"]
+                            anime.episode = data["nextAiringEpisode"]["episode"]
+                            await anime.save()
+                        else:
+                            await anime.delete()
+        except Exception as e:
+            print(e)
 
 
 async def setup(bot: commands.Bot):
